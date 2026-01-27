@@ -1,0 +1,158 @@
+<!-- index.html -->
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Breathing Guide</title>
+
+  <!-- Inter font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body data-session="off">
+  <div class="wrap">
+    <div>
+      <h1>Breathing Guide</h1>
+      <p class="sub"><i>Follow the circle to guide your breathing</i></p>
+    </div>
+
+    <button class="iconBtn" id="infoBtn" aria-label="Help" title="Help">?</button>
+
+    <div class="stage" aria-label="Breathing visualization">
+      <div class="targets" id="targets" aria-hidden="true"></div>
+
+      <div class="circleWrap" aria-hidden="true">
+        <div class="circle" id="circle"></div>
+
+        <div class="centerText">
+          <div class="phaseInCircle phase-ready" id="phaseInCircle">Ready</div>
+          <div class="cycleProgress" id="cycleProgress">Cycles: 0 / 0</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="controls">
+      <button id="startBtn">Start</button>
+      <button id="stopBtn" disabled>Stop</button>
+
+      <label class="pill">
+        <input id="showTargets" type="checkbox" checked />
+        Progress rings
+      </label>
+
+      <!-- Duration -->
+      <div class="duration" title="Session duration (minutes)" id="durationCtrl">
+        <span class="durationLabel">Duration</span>
+        <div class="durationBtns" role="group" aria-label="Duration presets">
+          <button class="durBtn active" data-min="1" aria-pressed="true">1</button>
+          <button class="durBtn" data-min="3" aria-pressed="false">3</button>
+          <button class="durBtn" data-min="5" aria-pressed="false">5</button>
+          <button class="durBtn" data-min="10" aria-pressed="false">10</button>
+        </div>
+        <span class="durUnit">min</span>
+      </div>
+
+      <!-- Pace -->
+      <div class="slider" title="Guide pace preset (0..5)" id="paceCtrl">
+        <span class="sliderLabel">Pace</span>
+
+        <div class="rangeWrap">
+          <input
+            id="pace"
+            type="range"
+            min="0"
+            max="5"
+            step="1"
+            value="3"
+            aria-label="Pace (0 to 5)"
+          />
+          <div class="tickLabels" aria-hidden="true">
+            <span>0</span><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span>
+          </div>
+        </div>
+
+        <span id="paceVal" class="paceVal">3</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Entry -->
+  <div class="overlay" id="entryOverlay" role="dialog" aria-modal="true" aria-labelledby="entryTitle">
+    <div class="panel">
+      <button class="closeX" id="entryCloseX" aria-label="Close">✕</button>
+      <h2 id="entryTitle">How are you feeling today?</h2>
+      <p>
+        Take a moment to settle in.<br/>
+        When you’re ready, we’ll begin.
+      </p>
+      <p class="muted">You can open Help anytime using <b>?</b>.</p>
+      <div class="panelActions">
+        <button class="ghostBtn" id="entryHowBtn">Show me how</button>
+        <button id="entryStartBtn">Start</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Help -->
+<div class="overlay" id="helpOverlay" role="dialog" aria-modal="true" aria-labelledby="helpTitle">
+  <div class="panel">
+    <button class="closeX" id="helpCloseX" aria-label="Close">✕</button>
+
+    <h2 id="helpTitle">Help</h2>
+
+    <p class="muted">
+      This is a slow-paced breathing guide designed to support everyday wellbeing.
+    </p>
+
+    <div class="rows">
+      <div>
+        <div class="rowTitle">How it works</div>
+        <p>
+          The circle expands on inhale and contracts on exhale.
+        </p>
+      </div>
+
+      <div>
+        <div class="rowTitle">Pace</div>
+        <p>
+          Lower is quicker. Higher is slower. Choose what feels comfortable.
+        </p>
+      </div>
+
+      <div>
+        <div class="rowTitle">Duration</div>
+        <p>
+          Choose 1 / 3 / 5 / 10 minutes.
+        </p>
+      </div>
+    </div>
+
+    <div class="panelActions">
+      <button class="ghostBtn" id="helpCloseBtn">Close</button>
+    </div>
+  </div>
+</div>
+
+
+  <!-- Walkthrough (spotlight + popover) -->
+  <div class="wtOverlay" id="wtOverlay" aria-hidden="true">
+    <div class="wtDim"></div>
+    <div class="wtSpot" id="wtSpot" aria-hidden="true"></div>
+
+    <div class="wtCard" id="wtCard" role="dialog" aria-modal="true" aria-labelledby="wtTitle">
+      <div class="wtTitle" id="wtTitle">Quick guide</div>
+      <div class="wtBody" id="wtBody"></div>
+      <div class="wtActions">
+        <button class="ghostBtn" id="wtSkipBtn">Skip</button>
+        <button id="wtNextBtn">Got it</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
